@@ -8,7 +8,7 @@
 
 MODULE_LICENSE("GPL");
 MODULE_DESCRIPTION("Modulo RAM");
-MODULE_AUTHOR("Diego Fernando Cotez Lopez, 201900955");
+MODULE_AUTHOR("Adrian Samuel Molina Cabrera, 201903850");
 
 struct sysinfo ram_info;
 
@@ -40,13 +40,13 @@ static struct proc_ops operaciones ={
 };
 
 static int insertMod(void){
-    proc_create("ram_201900955", 0, NULL, &operaciones);
-    printk(KERN_INFO "201900955\n");
+    proc_create("ram_201903850", 0, NULL, &operaciones);
+    printk(KERN_INFO "201903850\n");
     return 0;
 }
 
 static void removeMod(void){
-    remove_proc_entry("ram_201900955", NULL);
+    remove_proc_entry("ram_201903850", NULL);
     printk(KERN_INFO "Segundo Semestre 2022\n");
 }
 
