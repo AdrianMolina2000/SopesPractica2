@@ -4,9 +4,9 @@ import (
 	"database/sql"
 	"fmt"
 	"log"
-	"time"
-
+	"os/exec"
 	_ "os/exec"
+	"time"
 
 	_ "github.com/go-sql-driver/mysql"
 )
@@ -19,34 +19,43 @@ func main() {
 		log.Fatal(err)
 	}
 
-	salida := 0
+	fmt.Println("Datos obtenidos desde el Modulo: ")
+	fmt.Println("")
+
 	for {
-		query := `INSERT INTO tarea2(nombre, carnet) VALUES (?, ?);`
-		result, err := db.Exec(query, "Tiempo", salida)
-
-		if err != nil {
-			fmt.Println(err)
-		}
-
-		fmt.Println("Tiempo", salida)
-		fmt.Println(result)
-		if salida == 4 {
-			break
-		}
-		salida += 1
-		time.Sleep(1 * time.Second)
-	}
-
-	/*
-		fmt.Println("Datos obtenidos desde el Modulo: ")
-		fmt.Println("")
-
 		cmd := exec.Command("sh", "-c", "cat /proc/ram_201903850")
+		cmd2 := exec.Command("sh", "-c", "cat /proc/cpu_201903850")
+
 		out, err := cmd.CombinedOutput()
 		if err != nil {
 			fmt.Println(err)
 		}
+
+		out2, err := cmd2.CombinedOutput()
+		if err != nil {
+			fmt.Println(err)
+		}
+
 		output := string(out[:])
-		fmt.Println(output)
-	*/
+		output2 := string(out2[:])
+
+		query := `INSERT INTO ram(valor) VALUES (?);`
+		query2 := `INSERT INTO cpu(valor) VALUES (?);`
+
+		result, err := db.Exec(query, output)
+		if err != nil {
+			fmt.Println(err)
+		}
+
+		result2, err := db.Exec(query2, output2)
+		if err != nil {
+			fmt.Println(err)
+		}
+
+		fmt.Println(result)
+		fmt.Println(result2)
+
+		time.Sleep(5 * time.Second)
+	}
+
 }
