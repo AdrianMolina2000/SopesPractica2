@@ -21,7 +21,7 @@ func main() {
 
 	salida := 0
 	for {
-		query := `INSERT INTO tarea2(nombre, carnet) VALUES ();`
+		query := `INSERT INTO tarea2(nombre, carnet) VALUES (?, ?);`
 		result, err := db.Exec(query, "Tiempo", salida)
 
 		if err != nil {
