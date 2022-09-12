@@ -4,6 +4,7 @@ import (
 	"database/sql"
 	"fmt"
 	"log"
+	"time"
 
 	_ "os/exec"
 
@@ -18,15 +19,23 @@ func main() {
 		log.Fatal(err)
 	}
 
-	var version string
+	salida := 0
+	for {
+		query := `INSERT INTO tarea2(nombre, carnet) VALUES ();`
+		result, err := db.Exec(query, "Tiempo", salida)
 
-	err2 := db.QueryRow("SELECT VERSION()").Scan(&version)
+		if err != nil {
+			fmt.Println(err)
+		}
 
-	if err2 != nil {
-		log.Fatal(err2)
+		fmt.Println("Tiempo", salida)
+		fmt.Println(result)
+		if salida == 4 {
+			break
+		}
+		salida += 1
+		time.Sleep(1 * time.Second)
 	}
-
-	fmt.Println(version)
 
 	/*
 		fmt.Println("Datos obtenidos desde el Modulo: ")
